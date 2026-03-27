@@ -1,0 +1,33 @@
+# AI Program: Spam Detection
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Training data
+messages = [
+    "Win money now",
+    "Call me today",
+    "Free offer just for you",
+    "Let us meet tomorrow",
+    "Earn cash quickly",
+    "Project meeting at 5"
+]
+
+labels = ["Spam", "Not Spam", "Spam", "Not Spam", "Spam", "Not Spam"]
+
+# Convert text to numbers
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(messages)
+
+# Train model
+model = MultinomialNB()
+model.fit(X, labels)
+
+# Test input
+new_msg = input("Enter a message: ")
+
+# Convert and predict
+new_X = vectorizer.transform([new_msg])
+prediction = model.predict(new_X)
+
+print("Prediction:", prediction[0])
